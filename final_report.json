@@ -34,7 +34,10 @@
   },
   "sales_by_category": {
     "Accessories": 339.97,
-    "Electronics": 2699.4700000000003
+    "Electronics": 2699.47
+  },
+  "top_client_in_category": {
+    "Electronics": "Alice"
   },
   "high_spending_clients": [
     "Alice",
