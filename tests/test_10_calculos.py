@@ -74,7 +74,7 @@ def test_10_calculos_completos():
     # Alice: 2 (Smartphone + Tablet)
     # Bob: 1 (Laptop)
     # Carol: 1 (Monitor)
-    assert report["clients"][0]["name"] == "Alice"  # check by ordering
+    assert report["top_client_in_category"]["Electronics"] == "Alice"
 
     # ------------------------------
     # 9) CLIENTES DE ALTO GASTO (>500)

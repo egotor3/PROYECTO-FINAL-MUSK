@@ -91,7 +91,8 @@ def generate_report(min_spending=500, category_focus="Electronics"):
     sales_df = pd.read_csv(DATA_DIR / "sales.csv")
     sales_by_category_series = sales_df.groupby("category")["amount"].sum()
     sales_by_category = {
-        category: float(value) for category, value in sales_by_category_series.items()
+        category: round(float(value), 2)
+        for category, value in sales_by_category_series.items()
     }
 
     high_spending_clients = [
@@ -103,11 +104,13 @@ def generate_report(min_spending=500, category_focus="Electronics"):
     sales_df["date"] = pd.to_datetime(sales_df["date"])
     sales_df["month"] = sales_df["date"].dt.to_period("M").astype(str)
     monthly_series = sales_df.groupby("month")["amount"].sum()
-    monthly_sales = {month: float(value) for month, value in monthly_series.items()}
+    monthly_sales = {
+        month: round(float(value), 2) for month, value in monthly_series.items()
+    }
 
     # Cálculo explícito para cumplir requisito de uso funcional + cruce:
     # cliente con más ventas en una categoría específica.
-    _ = max(
+    top_client_in_focus_category = max(
         clients,
         key=lambda client: len(
             [
@@ -127,6 +130,9 @@ def generate_report(min_spending=500, category_focus="Electronics"):
         "clients": clients_report,
         "top_client_by_country": top_client_by_country,
         "sales_by_category": sales_by_category,
+        "top_client_in_category": {
+            category_focus: top_client_in_focus_category.name
+        },
         "high_spending_clients": high_spending_clients,
         "monthly_sales": monthly_sales,
     }
